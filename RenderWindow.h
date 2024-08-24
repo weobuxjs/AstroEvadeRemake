@@ -17,7 +17,7 @@ public:
     RenderWindow(const char*title,int x,int y)
     {
         window=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,x,y,SDL_WINDOW_SHOWN);
-        renderer=SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED||SDL_RENDERER_PRESENTVSYNC);
+        renderer=SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC);
         if(window==NULL)
         {
             cout<<"ERROR: "<<SDL_GetError();

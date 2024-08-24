@@ -235,7 +235,6 @@ int main(int argc,char*argv[])
                     }
                 }
             }
-            if(!player.get_is_dead() || isESC) player.Update();
             if(menu.isClicked==true)
             {
                 if(player.GetHP()<=0)
@@ -414,7 +413,8 @@ int main(int argc,char*argv[])
                 if(player.GetHP()<=75 && player.GetHP()>50) window.render(HealthBar,HealthBar.Clip[1]);
                 if(player.GetHP()<=50 && player.GetHP()>25) window.render(HealthBar,HealthBar.Clip[2]);
                 if(player.GetHP()<=25 && player.GetHP()>0) window.render(HealthBar,HealthBar.Clip[3]);
-                if(player.GetHP()<=0) window.render(HealthBar,HealthBar.Clip[4]);     
+                if(player.GetHP()<=0) window.render(HealthBar,HealthBar.Clip[4]);
+                if(!isESC)player.update();     
                 window.render(ScoreText); 
                 if(isF5==true)
                 {

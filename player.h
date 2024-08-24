@@ -11,6 +11,7 @@ public:
     
     player(SDL_Texture*texture,SDL_Texture*shadow, int x,int y)
     {
+        xVel=yVel=0;
         HP=100;
         tex=texture;
         this->shadow=shadow; 
@@ -152,47 +153,45 @@ public:
     }
     void HandleInput(SDL_Event event)
     {
-        if(event.type==SDL_KEYDOWN && event.key.repeat)
+        if(event.type==SDL_KEYDOWN && event.key.repeat==0)
         {
             switch(event.key.keysym.sym)
             {
                 case SDLK_d:
-                    if(is_dead==false) xVal += 20;
+                    if(is_dead==false) xVel+=20;//ChangeX(20);
                     break;
                 case SDLK_a:
-                    if(is_dead==false) xVal -=20;
+                    if(is_dead==false) xVel-=20;//ChangeX(-20);
                     break;
                 case SDLK_LEFT:
-                    if(is_dead==false) xVal -=20;
+                    if(is_dead==false) xVel-=20;//ChangeX(-20);
                     break;
                 case SDLK_RIGHT:
-                    if(is_dead==false) xVal+=20;
+                    if(is_dead==false)xVel+=20;// ChangeX(20);
                     break;               
-
             }
         }
-        if(event.type ==SDL_KEYUP && event.key.repeat ==0 )
+        if(event.type==SDL_KEYUP && event.key.repeat==0)
         {
             switch(event.key.keysym.sym)
             {
                 case SDLK_d:
-                    if(is_dead==false) //xVal -=20;
+                    if(is_dead==false) xVel-=20;//ChangeX(20);
                     break;
                 case SDLK_a:
-                    if(is_dead==false) //xVal +=20;
-                    break;
-                case SDLK_LEFT:
-                    if(is_dead==false) //xVal +=20;
-                    break;
-                case SDLK_RIGHT:
-                    if(is_dead==false) //xVal -=20;
+                    if(is_dead==false) xVel+=20;//ChangeX(-20);
                     break;              
-            } 
+            }
         }
     }
-    void Update()
+    void update()
     {
-        ChangeX(xVal);
+        if(!is_dead)
+        {
+            ChangeX(xVel);
+            ChangeY(yVel);
+        }
+
     }
     SDL_Rect HitboxUp;
     SDL_Rect Hitbox;
@@ -204,7 +203,7 @@ private:
     SDL_Texture*shadow;
     SDL_Rect src,dst;
     SDL_Rect ShadowRect;
-    int xVal;
-    int yVal;
+    int xVel;
+    int yVel;
     int HP;
 };
