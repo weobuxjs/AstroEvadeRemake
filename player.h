@@ -158,17 +158,11 @@ public:
             switch(event.key.keysym.sym)
             {
                 case SDLK_d:
-                    if(is_dead==false) xVel+=20;//ChangeX(20);
+                    if(is_dead==false) xVel+=10;//ChangeX(20);
                     break;
                 case SDLK_a:
-                    if(is_dead==false) xVel-=20;//ChangeX(-20);
-                    break;
-                case SDLK_LEFT:
-                    if(is_dead==false) xVel-=20;//ChangeX(-20);
-                    break;
-                case SDLK_RIGHT:
-                    if(is_dead==false)xVel+=20;// ChangeX(20);
-                    break;               
+                    if(is_dead==false) xVel-=10;//ChangeX(-20);
+                    break;            
             }
         }
         if(event.type==SDL_KEYUP && event.key.repeat==0)
@@ -176,10 +170,10 @@ public:
             switch(event.key.keysym.sym)
             {
                 case SDLK_d:
-                    if(is_dead==false) xVel-=20;//ChangeX(20);
+                    if(is_dead==false) xVel-=10;//ChangeX(20);
                     break;
                 case SDLK_a:
-                    if(is_dead==false) xVel+=20;//ChangeX(-20);
+                    if(is_dead==false) xVel+=10;//ChangeX(-20);
                     break;              
             }
         }
@@ -197,13 +191,14 @@ public:
     SDL_Rect Hitbox;
     SDL_Rect HitboxLeft;
     SDL_Rect HitboxRight;
+    int xVel;
+    int yVel;
 private:
     bool is_dead;
     SDL_Texture*tex;
     SDL_Texture*shadow;
     SDL_Rect src,dst;
     SDL_Rect ShadowRect;
-    int xVel;
-    int yVel;
+
     int HP;
 };

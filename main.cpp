@@ -98,13 +98,16 @@ int main(int argc,char*argv[])
                 bullet_list.clear();
                 MedicineVector.clear();
                 player.SetX(400);
-                x=y=0;
+                x=0;
+                y=0;
                 Start=SDL_GetTicks();
                 isESC=false;
+                player.xVel=player.yVel=0;
             }
 
             if(!isESC && menu.isClicked)
             {
+                
                 if(x==45 && y==24)
                 { 
                     x=0,y=0;      
@@ -426,7 +429,7 @@ int main(int argc,char*argv[])
                     window.drawrect(player.HitboxUp);
                 }
             }
-            x++;
+            
             frame++;
             if(menu.isClicked==false)
             {
@@ -437,6 +440,7 @@ int main(int argc,char*argv[])
             {
                 window.renderQuit(menu);
             }
+            x= (x+1)%46;
             window.display();
             ScoreText.free();
             SDL_Delay(16);
