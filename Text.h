@@ -15,7 +15,7 @@ struct Text
     SDL_Rect pos;
     void free()
     {
-        TextSurface=NULL;
-        TextTexture=NULL;
+        SDL_DestroyTexture(TextTexture);
+        SDL_FreeSurface(TextSurface);
     }
 };

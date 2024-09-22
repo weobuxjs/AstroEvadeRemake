@@ -169,6 +169,7 @@ int main(int argc,char*argv[])
                             break;
                         case SDLK_ESCAPE:
                             isESC=!isESC;
+                            player.xVel =0;
                             break;
                     }
                 }
@@ -209,17 +210,16 @@ int main(int argc,char*argv[])
                     }
                     if(isESC)
                     {
-                     if(window.CheckCoillision(MouseX,MouseY,menu.quitDst)==true)
-                     {
-                        Mix_PlayMusic(Click,0);
-                        menu.isClicked=false;
-                     }
-                     if(window.CheckCoillision(MouseX,MouseY,menu.replayDst))
-                     {
-                        Mix_PlayMusic(Click,0);
-                        menu.isReplay=true;
-                     
-                     }
+                        if(window.CheckCoillision(MouseX,MouseY,menu.quitDst)==true)
+                        {
+                            Mix_PlayMusic(Click,0);
+                            menu.isClicked=false;
+                        }
+                        if(window.CheckCoillision(MouseX,MouseY,menu.replayDst))
+                        {
+                            Mix_PlayMusic(Click,0);
+                            menu.isReplay=true;
+                        }
                     }
                 }
                 if(event.type==SDL_MOUSEBUTTONDOWN && menu.isClicked)
@@ -332,11 +332,7 @@ int main(int argc,char*argv[])
                             if(gAsteroid->get_is_move()==false)
                             {
                                 AsteroidVector.erase(AsteroidVector.begin()+j);
-                                if(gAsteroid!=NULL)
-                                {
-                                    gAsteroid=NULL;
-                                    delete gAsteroid;
-                                }
+                                delete gAsteroid;
                             }
                         }
                     }
@@ -408,8 +404,7 @@ int main(int argc,char*argv[])
                 if(player.get_is_dead()==false && isESC==false) window.render(player,player.idle[frame/5]);
                 else if(player.get_is_dead()==true || isESC==true) 
                 {
-                   window.render(player,player.idle[0]);
-                   SDL_SetWindowTitle(window.GetWindow(),"Do You Want To Replay?"); 
+                   window.render(player,player.idle[0]); 
                 }
                 window.draw_fullrect(HealthColor);
                 if(player.GetHP()<=100 && player.GetHP()>75) window.render(HealthBar,HealthBar.Clip[0]);
@@ -417,7 +412,7 @@ int main(int argc,char*argv[])
                 if(player.GetHP()<=50 && player.GetHP()>25) window.render(HealthBar,HealthBar.Clip[2]);
                 if(player.GetHP()<=25 && player.GetHP()>0) window.render(HealthBar,HealthBar.Clip[3]);
                 if(player.GetHP()<=0) window.render(HealthBar,HealthBar.Clip[4]);
-                if(!isESC)player.update();     
+                if(!isESC) player.update();     
                 window.render(ScoreText); 
                 if(isF5==true)
                 {
@@ -443,12 +438,14 @@ int main(int argc,char*argv[])
             x= (x+1)%46;
             window.display();
             ScoreText.free();
-            SDL_Delay(16);
+            // SDL_Delay(16);
         }   
     Mix_FreeMusic(doors);
     Mix_FreeChunk(shoot);
     Mix_FreeChunk(background);
     Mix_FreeChunk(asteroidBoom);
+    SDL_DestroyTexture(HealthBar_Texture);
+    
     window.cleanup();
     SDL_Quit();
     return 0;
