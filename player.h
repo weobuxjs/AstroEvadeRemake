@@ -1,8 +1,8 @@
 #pragma once
 #include<iostream>
-#include<SDL.h>
-#include<SDL_image.h>
-#include<SDL_mixer.h>
+#include<SDL2/SDL.h>
+#include<SDL2/SDL_image.h>
+#include<SDL2/SDL_mixer.h>
 class player
 {
 public:
@@ -170,10 +170,10 @@ public:
             switch(event.key.keysym.sym)
             {
                 case SDLK_d:
-                    if(is_dead==false) xVel-=10;//ChangeX(20);
+                    if(!is_dead) xVel-=10;//ChangeX(20);
                     break;
                 case SDLK_a:
-                    if(is_dead==false) xVel+=10;//ChangeX(-20);
+                    if(!is_dead) xVel+=10;//ChangeX(-20);
                     break;              
             }
         }
