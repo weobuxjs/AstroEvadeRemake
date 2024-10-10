@@ -179,6 +179,7 @@ public:
                     break;              
             }
         }
+        #ifdef WIN32
         if(event.type==SDL_KEYUP 
         #ifdef WIN32
         && event.key.repeat==0 
@@ -189,22 +190,15 @@ public:
             {
                 case SDLK_d:
                     if(!is_dead) 
-                    #ifdef WIN32
                         xVel-=10;
-                    #elif __linux 
-                        ChangeX(-25);
-                    #endif
                     break;
                 case SDLK_a:
                     if(!is_dead) 
-                    #ifdef WIN32
                         xVel+=10;
-                    #elif __linux 
-                        ChangeX(25);
-                    #endif
                     break;              
             }
         }
+        #endif
     }
     #ifdef WIN32
     void update()

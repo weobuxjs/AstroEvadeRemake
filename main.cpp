@@ -2,8 +2,8 @@
 #include<SDL2/SDL.h>
 #include<SDL2/SDL_image.h>
 #include<SDL2/SDL_mixer.h>
-#include<vector>
 #include<SDL2/SDL_ttf.h>
+#include<vector>
 #include<string>
 #include<math.h>
 #include"RenderWindow.h"
@@ -119,7 +119,7 @@ int main(int argc,char*argv[])
                 }
             }
             
-            SDL_Rect HealthColor={0,750,player.GetHP()*2.56,32};
+            SDL_Rect HealthColor={0,750,static_cast<int>(player.GetHP()*2.56),32};
             int random=rand()%3;
             if(!player.get_is_dead() && isESC==false && menu.isClicked)
             {
@@ -412,7 +412,9 @@ int main(int argc,char*argv[])
                 if(player.GetHP()<=50 && player.GetHP()>25) window.render(HealthBar,HealthBar.Clip[2]);
                 if(player.GetHP()<=25 && player.GetHP()>0) window.render(HealthBar,HealthBar.Clip[3]);
                 if(player.GetHP()<=0) window.render(HealthBar,HealthBar.Clip[4]);
-                if(!isESC) player.update();     
+                #ifdef WIN32 
+                (!isESC) player.update();     
+                #endif
                 window.render(ScoreText); 
                 if(isF5==true)
                 {
@@ -429,7 +431,6 @@ int main(int argc,char*argv[])
             if(menu.isClicked==false)
             {
                 window.render(menu);
-                SDL_SetWindowTitle(window.GetWindow(),"Are You Ready To Play This Game?");
             } 
             if((player.get_is_dead()==true|| isESC==true) && menu.isClicked==true )
             {
