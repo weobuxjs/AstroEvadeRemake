@@ -153,54 +153,31 @@ public:
     }
     void HandleInput(SDL_Event event)
     {
-        if(event.type==SDL_KEYDOWN
-        #ifdef WIN32
-        && event.key.repeat==0 
-        #endif
-        )
+        if(event.type == SDL_KEYDOWN && event.key.repeat == 0)
         {
-            switch(event.key.keysym.sym)
+            switch (event.key.keysym.sym)
             {
-                case SDLK_d:
-                    if(!is_dead) 
-                    #ifdef WIN32
-                        xVel+=10;
-                    #elif __linux 
-                        ChangeX(20);
-                    #endif
-                    break;
                 case SDLK_a:
-                    if(!is_dead) 
-                    #ifdef WIN32
-                        xVel-=10;
-                    #elif __linux 
-                        ChangeX(-20);
-                    #endif
-                    break;              
+                    xVel -=10;
+                    break;
+                case SDLK_d:
+                    xVel +=10;
+                    break;
             }
         }
-        #ifdef WIN32
-        if(event.type==SDL_KEYUP 
-        #ifdef WIN32
-        && event.key.repeat==0 
-        #endif
-        )
+         if(event.type == SDL_KEYUP && event.key.repeat == 0)
         {
-            switch(event.key.keysym.sym)
+            switch (event.key.keysym.sym)
             {
-                case SDLK_d:
-                    if(!is_dead) 
-                        xVel-=10;
-                    break;
                 case SDLK_a:
-                    if(!is_dead) 
-                        xVel+=10;
-                    break;              
+                    xVel +=10;
+                    break;
+                case SDLK_d:
+                    xVel -=10;
+                    break;
             }
         }
-        #endif
     }
-    #ifdef WIN32
     void update()
     {
         if(!is_dead)
@@ -209,7 +186,6 @@ public:
             ChangeY(yVel);
         }
     }
-    #endif
     SDL_Rect HitboxUp;
     SDL_Rect Hitbox;
     SDL_Rect HitboxLeft;
